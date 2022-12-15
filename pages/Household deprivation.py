@@ -86,7 +86,7 @@ elif page =='Household is deprived in three dimensions':
  fig.update_geos(fitbounds="locations", visible=False)
  st.plotly_chart(fig,use_container_width = True)
 
-else: 
+elif page== 'Household is deprived in four dimensions':
  deprivation_merge= deprivation_merge[deprivation_merge.MEASURES_NAME == 'Value']
  deprivation_merge = deprivation_merge[deprivation_merge["C2021_DEP_6_NAME"].str.contains('Household is deprived in four dimensions') == True]
  fig = px.choropleth(deprivation_merge.dissolve(by='ward_name'),
