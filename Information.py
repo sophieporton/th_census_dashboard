@@ -4,6 +4,7 @@ import pandas as pd
 import geopandas as gpd
 import plotly.express as px
 
+
 # %%
 # 2022 ward boundaries
 try:
@@ -52,9 +53,6 @@ st.session_state['merged_wd_oa'] = merged_wd_oa
 # %%
 st.set_page_config(layout = "wide")
 st.title("Ward profiles")
-
-st.sidebar.selectbox('Select variable',
-  ['Population density','Deprived in 4 dimensions'])
-
+st.text('This is a web app to allow exploration of 2021 census data in Tower Hamlets')
 
 
