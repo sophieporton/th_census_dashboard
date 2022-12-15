@@ -44,4 +44,18 @@ if page =='Household is not deprived in any dimension':
  fig.update_geos(fitbounds="locations", visible=False)
  st.plotly_chart(fig,use_container_width = True)
 
+elif page =='Household is deprived in one dimension': 
+ deprivation_merge= deprivation_merge[deprivation_merge.MEASURES_NAME == 'Value']
+ deprivation_merge = deprivation_merge[deprivation_merge["C2021_DEP_6_NAME"].str.contains('Household is deprived in one dimension') == True]
+ fig = px.choropleth(deprivation_merge.dissolve(by='ward_name'),
+                   geojson=deprivation_merge.dissolve(by='ward_name').geometry,
+                   locations=deprivation_merge.dissolve(by='ward_name').index,
+                   color="OBS_VALUE",
+                   color_continuous_scale = 'viridis_r',
+                   projection="mercator",
+                   hover_name=deprivation_merge.dissolve(by='ward_name').index,
+                   hover_data=['OBS_VALUE'])
+ fig.update_geos(fitbounds="locations", visible=False)
+ st.plotly_chart(fig,use_container_width = True)
+
 
