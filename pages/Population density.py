@@ -25,13 +25,14 @@ popden_merge=merge_spatial_data(merged_wd_oa, popden_oa,"OA21CD", "GEOGRAPHY_COD
 
 # %%
 st.header('Population density')
-fig = px.choropleth(popden_merge.dissolve(by='ward_name'),
-                   geojson=popden_merge.dissolve(by='ward_name').geometry,
-                   locations=popden_merge.dissolve(by='ward_name').index,
+
+fig = px.choropleth(popden_merge.dissolve(by='ward_name', aggfunc = 'mean'),
+                   geojson=popden_merge.dissolve(by='ward_name', aggfunc = 'mean').geometry,
+                   locations=popden_merge.dissolve(by='ward_name', aggfunc = 'mean').index,
                    color="OBS_VALUE",
                    color_continuous_scale = 'viridis_r',
                    projection="mercator",
-                   hover_name=popden_merge.dissolve(by='ward_name').index,
+                   hover_name=popden_merge.dissolve(by='ward_name', aggfunc = 'mean').index,
                    hover_data=['OBS_VALUE'])
 fig.update_geos(fitbounds="locations", visible=False)
 st.plotly_chart(fig,use_container_width = True)
