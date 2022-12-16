@@ -43,23 +43,11 @@ st.header('Number of usual residents in households and communal establishments')
 page= st.sidebar.selectbox('Select variable',
   ['Lives in a household','Lives in a communal establishment'])
 
-
-if page =='Lives in a communal establishment': 
- household_communal_merge= household_communal_merge[household_communal_merge.MEASURES_NAME == 'Value']
- household_communal_merge = household_communal_merge[household_communal_merge["C2021_RESTYPE_3_NAME"].str.contains('Lives in a communal establishment') == True]
- fig = px.choropleth(household_communal_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}),
-                   geojson=household_communal_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).geometry,
-                   locations=household_communal_merge.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':'sum'}).index,
-                   color="OBS_VALUE",
-                   color_continuous_scale = 'viridis_r',
-                   projection="mercator",
-                   hover_name=household_communal_merge.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':'sum'}).index,
-                   hover_data=['OBS_VALUE'])
- fig.update_geos(fitbounds="locations", visible=False)
- st.plotly_chart(fig,use_container_width = True)
+if page== 'Lives in a communal establishment':
+  plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a communal establishment', agg='sum')
 
 
 elif page =='Lives in a household': 
-  plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a household', agg='sum' )
+  plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a household', agg='sum')
 
 
