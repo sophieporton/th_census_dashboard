@@ -24,6 +24,21 @@ except:
 household_communal_merge=merge_spatial_data(merged_wd_oa, household_communal_oa,"OA21CD", "GEOGRAPHY_CODE")
 
 # %%
+def plot_wards(df, column='', string='', agg=''):
+    df=df[df.MEASURES_NAME== 'Value']
+    df=df[df[column].str.contains(string)==True]
+    fig = px.choropleth(df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}),
+                   geojson=df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}).geometry,
+                   locations=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
+                   color="OBS_VALUE",
+                   color_continuous_scale = 'viridis_r',
+                   projection="mercator",
+                   hover_name=household_communal_merge.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
+                   hover_data=['OBS_VALUE'])
+    fig.update_geos(fitbounds="locations", visible=False)
+    st.plotly_chart(fig,use_container_width = True)
+
+# %%
 st.header('Number of usual residents in households and communal establishments')
 page= st.sidebar.selectbox('Select variable',
   ['Lives in a household','Lives in a communal establishment'])
@@ -43,18 +58,8 @@ if page =='Lives in a communal establishment':
  fig.update_geos(fitbounds="locations", visible=False)
  st.plotly_chart(fig,use_container_width = True)
 
+
 elif page =='Lives in a household': 
- household_communal_merge= household_communal_merge[household_communal_merge.MEASURES_NAME == 'Value']
- household_communal_merge = household_communal_merge[household_communal_merge["C2021_RESTYPE_3_NAME"].str.contains('Lives in a household') == True]
- fig = px.choropleth(household_communal_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}),
-                   geojson=household_communal_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).geometry,
-                   locations=household_communal_merge.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':'sum'}).index,
-                   color="OBS_VALUE",
-                   color_continuous_scale = 'viridis_r',
-                   projection="mercator",
-                   hover_name=household_communal_merge.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':'sum'}).index,
-                   hover_data=['OBS_VALUE'])
- fig.update_geos(fitbounds="locations", visible=False)
- st.plotly_chart(fig,use_container_width = True)
+  plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a household', agg='sum' )
 
 
