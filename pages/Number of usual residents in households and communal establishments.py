@@ -4,6 +4,21 @@ import plotly.express as px
 import pandas as pd
 
 # %%
+def plot_wards(df, column='', string='', agg=''):
+    df=df[df.MEASURES_NAME== 'Value']
+    df=df[df[column].str.contains(string)==True]
+    fig = px.choropleth(df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}),
+                   geojson=df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}).geometry,
+                   locations=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
+                   color="OBS_VALUE",
+                   color_continuous_scale = 'viridis_r',
+                   projection="mercator",
+                   hover_name=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
+                   hover_data=['OBS_VALUE'])
+    fig.update_geos(fitbounds="locations", visible=False)
+    st.plotly_chart(fig,use_container_width = True)
+
+# %%
 def merge_spatial_data(gdf, df, left_on="", right_on=""):
     gdf=gdf.merge(df, left_on=left_on, right_on=right_on)
     return gdf
@@ -22,21 +37,6 @@ except:
 
 #merge deprivation data with spatial data
 household_communal_merge=merge_spatial_data(merged_wd_oa, household_communal_oa,"OA21CD", "GEOGRAPHY_CODE")
-
-# %%
-def plot_wards(df, column='', string='', agg=''):
-    df=df[df.MEASURES_NAME== 'Value']
-    df=df[df[column].str.contains(string)==True]
-    fig = px.choropleth(df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}),
-                   geojson=df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}).geometry,
-                   locations=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
-                   color="OBS_VALUE",
-                   color_continuous_scale = 'viridis_r',
-                   projection="mercator",
-                   hover_name=household_communal_merge.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
-                   hover_data=['OBS_VALUE'])
-    fig.update_geos(fitbounds="locations", visible=False)
-    st.plotly_chart(fig,use_container_width = True)
 
 # %%
 st.header('Number of usual residents in households and communal establishments')
