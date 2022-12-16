@@ -4,6 +4,21 @@ import plotly.express as px
 import pandas as pd
 
 # %%
+def plot_wards(df, column='', string='', agg=''):
+    df=df[df.MEASURES_NAME== 'Value']
+    df=df[df[column].str.contains(string)==True]
+    fig = px.choropleth(df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}),
+                   geojson=df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}).geometry,
+                   locations=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
+                   color="OBS_VALUE",
+                   color_continuous_scale = 'viridis_r',
+                   projection="mercator",
+                   hover_name=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
+                   hover_data=['OBS_VALUE'])
+    fig.update_geos(fitbounds="locations", visible=False)
+    st.plotly_chart(fig,use_container_width = True)
+
+# %%
 def merge_spatial_data(gdf, df, left_on="", right_on=""):
     gdf=gdf.merge(df, left_on=left_on, right_on=right_on)
     return gdf
@@ -31,73 +46,18 @@ page= st.sidebar.selectbox('Select variable',
 
 
 if page =='Household is not deprived in any dimension': 
- deprivation_merge= deprivation_merge[deprivation_merge.MEASURES_NAME == 'Value']
- deprivation_merge = deprivation_merge[deprivation_merge["C2021_DEP_6_NAME"].str.contains('Household is not deprived in any dimension') == True]
- fig = px.choropleth(deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}),
-                   geojson=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).geometry,
-                   locations=deprivation_merge.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':'sum'}).index,
-                   color="OBS_VALUE",
-                   color_continuous_scale = 'viridis_r',
-                   projection="mercator",
-                   hover_name=deprivation_merge.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':'sum'}).index,
-                   hover_data=['OBS_VALUE'])
- fig.update_geos(fitbounds="locations", visible=False)
- st.plotly_chart(fig,use_container_width = True)
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is not deprived in any dimension',agg='sum')
 
-elif page =='Household is deprived in one dimension': 
- deprivation_merge= deprivation_merge[deprivation_merge.MEASURES_NAME == 'Value']
- deprivation_merge = deprivation_merge[deprivation_merge["C2021_DEP_6_NAME"].str.contains('Household is deprived in one dimension') == True]
- fig = px.choropleth(deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}),
-                   geojson=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).geometry,
-                   locations=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).index,
-                   color="OBS_VALUE",
-                   color_continuous_scale = 'viridis_r',
-                   projection="mercator",
-                   hover_name=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).index,
-                   hover_data=['OBS_VALUE'])
- fig.update_geos(fitbounds="locations", visible=False)
- st.plotly_chart(fig,use_container_width = True)
+elif page =='Household is deprived in one dimension':  
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in one dimension',agg='sum')
 
 elif page =='Household is deprived in two dimensions': 
- deprivation_merge= deprivation_merge[deprivation_merge.MEASURES_NAME == 'Value']
- deprivation_merge = deprivation_merge[deprivation_merge["C2021_DEP_6_NAME"].str.contains('Household is deprived in two dimensions') == True]
- fig = px.choropleth(deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}),
-                   geojson=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).geometry,
-                   locations=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).index,
-                   color="OBS_VALUE",
-                   color_continuous_scale = 'viridis_r',
-                   projection="mercator",
-                   hover_name=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).index,
-                   hover_data=['OBS_VALUE'])
- fig.update_geos(fitbounds="locations", visible=False)
- st.plotly_chart(fig,use_container_width = True)
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in two dimensions',agg='sum')
 
 elif page =='Household is deprived in three dimensions': 
- deprivation_merge= deprivation_merge[deprivation_merge.MEASURES_NAME == 'Value']
- deprivation_merge = deprivation_merge[deprivation_merge["C2021_DEP_6_NAME"].str.contains('Household is deprived in three dimensions') == True]
- fig = px.choropleth(deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}),
-                   geojson=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).geometry,
-                   locations=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).index,
-                   color="OBS_VALUE",
-                   color_continuous_scale = 'viridis_r',
-                   projection="mercator",
-                   hover_name=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).index,
-                   hover_data=['OBS_VALUE'])
- fig.update_geos(fitbounds="locations", visible=False)
- st.plotly_chart(fig,use_container_width = True)
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in three dimensions',agg='sum')
 
 elif page== 'Household is deprived in four dimensions':
- deprivation_merge= deprivation_merge[deprivation_merge.MEASURES_NAME == 'Value']
- deprivation_merge = deprivation_merge[deprivation_merge["C2021_DEP_6_NAME"].str.contains('Household is deprived in four dimensions') == True]
- fig = px.choropleth(deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}),
-                   geojson=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).geometry,
-                   locations=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).index,
-                   color="OBS_VALUE",
-                   color_continuous_scale = 'viridis_r',
-                   projection="mercator",
-                   hover_name=deprivation_merge.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':'sum'}).index,
-                   hover_data=['OBS_VALUE'])
- fig.update_geos(fitbounds="locations", visible=False)
- st.plotly_chart(fig,use_container_width = True)
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in four dimensions',agg='sum')
 
 
