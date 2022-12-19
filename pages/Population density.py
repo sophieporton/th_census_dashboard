@@ -35,7 +35,7 @@ fig = px.choropleth(popden_merge.dissolve(by='ward_name', aggfunc = 'mean'),
                    hover_name=popden_merge.dissolve(by='ward_name', aggfunc = 'mean').index,
                    hover_data=['OBS_VALUE'])
 fig.update_geos(fitbounds="locations", visible=False)
-fig.update_layout(coloraxis_colorbar=dict(title="Population density (people / $\mathregular{km^{2}}$)"))
+fig.update_layout(coloraxis_colorbar=dict(title="Population density (people /km<sup>2</sup>)"))
 st.plotly_chart(fig,use_container_width = True)
 
 
