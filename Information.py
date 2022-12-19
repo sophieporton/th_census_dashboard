@@ -53,6 +53,6 @@ st.session_state['merged_wd_oa'] = merged_wd_oa
 # %%
 st.set_page_config(layout = "wide")
 st.title("Ward profiles")
-st.text('This is a web app to allow exploration of 2021 census data in Tower Hamlets')
+st.text('This is a web app to allow exploration of 2021 census data in Tower Hamlets by ward')
 
 
