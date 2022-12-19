@@ -14,7 +14,7 @@ def plot_wards(df, column='', string='', agg='',title=''):
                    color_continuous_scale = 'viridis_r',
                    projection="mercator",
                    hover_name=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
-                   hover_data=['OBS_VALUE'])
+                   text=['text'], )
     fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(coloraxis_colorbar=dict(title=title))
     st.plotly_chart(fig,use_container_width = True)
@@ -38,6 +38,10 @@ except:
 
 #merge deprivation data with spatial data
 household_communal_merge=merge_spatial_data(merged_wd_oa, household_communal_oa,"OA21CD", "GEOGRAPHY_CODE")
+
+# %%
+household_communal_merge['text'] = household_communal_merge['ward_name'] + '<br>' + \
+    'Number of households ' + household_communal_merge['OBS_VALUE']
 
 # %%
 st.header('Number of usual residents in households and communal establishments')
