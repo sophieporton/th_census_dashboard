@@ -4,7 +4,7 @@ import plotly.express as px
 import pandas as pd
 
 # %%
-def plot_wards(df, column='', string='', agg=''):
+def plot_wards(df, column='', string='', agg='',title=''):
     df=df[df.MEASURES_NAME== 'Value']
     df=df[df[column].str.contains(string)==True]
     fig = px.choropleth(df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}),
@@ -16,6 +16,7 @@ def plot_wards(df, column='', string='', agg=''):
                    hover_name=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
                    hover_data=['OBS_VALUE'])
     fig.update_geos(fitbounds="locations", visible=False)
+    fig.update_layout(coloraxis_colorbar=dict(title=title))
     st.plotly_chart(fig,use_container_width = True)
 
 # %%
@@ -44,10 +45,12 @@ page= st.sidebar.selectbox('Select variable',
   ['Lives in a household','Lives in a communal establishment'])
 
 if page== 'Lives in a communal establishment':
-  plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a communal establishment', agg='sum')
+  plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a communal establishment', agg='sum',
+  title='Number of households')
 
 
 elif page =='Lives in a household': 
-  plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a household', agg='sum')
+  plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a household', agg='sum',
+  title='Number of households')
 
 
