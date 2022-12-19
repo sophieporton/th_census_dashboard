@@ -16,7 +16,6 @@ def plot_wards(df, column='', string='', agg='',title=''):
                    hover_name=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index )
     fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(coloraxis_colorbar=dict(title=title))
-    fig.update_traces(hovertemplate='Value: %{'OBS_VALUE'}')
     st.plotly_chart(fig,use_container_width = True)
 
 # %%
@@ -47,6 +46,7 @@ page= st.sidebar.selectbox('Select variable',
 if page== 'Lives in a communal establishment':
   plot_wards(household_communal_merge, column='C2021_RESTYPE_3_NAME', string='Lives in a communal establishment', agg='sum',
   title='Number of households')
+  fig.update_traces(hovertemplate='Value: %{OBS_VALUE}')
 
 
 elif page =='Lives in a household': 
