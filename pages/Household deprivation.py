@@ -4,7 +4,7 @@ import plotly.express as px
 import pandas as pd
 
 # %%
-def plot_wards(df, column='', string='', agg=''):
+def plot_wards(df, column='', string='', agg='',title=''):
     df=df[df.MEASURES_NAME== 'Value']
     df=df[df[column].str.contains(string)==True]
     fig = px.choropleth(df.dissolve(by='ward_name', aggfunc ={'OBS_VALUE':agg}),
@@ -16,11 +16,13 @@ def plot_wards(df, column='', string='', agg=''):
                    hover_name=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index,
                    hover_data=['OBS_VALUE'])
     fig.update_geos(fitbounds="locations", visible=False)
+    fig.update_layout(coloraxis_colorbar=dict(title=title))
     st.plotly_chart(fig,use_container_width = True)
 
 # %%
 def merge_spatial_data(gdf, df, left_on="", right_on=""):
     gdf=gdf.merge(df, left_on=left_on, right_on=right_on)
+    
     return gdf
 
 # %%
@@ -46,18 +48,23 @@ page= st.sidebar.selectbox('Select variable',
 
 
 if page =='Household is not deprived in any dimension': 
- plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is not deprived in any dimension',agg='sum')
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is not deprived in any dimension',agg='sum',
+ title='Number of Households')
 
 elif page =='Household is deprived in one dimension':  
- plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in one dimension',agg='sum')
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in one dimension',agg='sum',
+ title='Number of Households')
 
 elif page =='Household is deprived in two dimensions': 
- plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in two dimensions',agg='sum')
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in two dimensions',agg='sum',
+ title='Number of Households')
 
 elif page =='Household is deprived in three dimensions': 
- plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in three dimensions',agg='sum')
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in three dimensions',agg='sum',
+ title='Number of Households')
 
 elif page== 'Household is deprived in four dimensions':
- plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in four dimensions',agg='sum')
+ plot_wards(deprivation_merge,column='C2021_DEP_6_NAME', string='Household is deprived in four dimensions',agg='sum',
+ title='Number of Households')
 
 
