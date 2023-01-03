@@ -39,7 +39,7 @@ except:
 country_birth_merge=merge_spatial_data(merged_wd_oa, country_birth_oa,"OA21CD", "GEOGRAPHY_CODE")
 
 # %%
-st.header('Place of birth')
+st.header('Country of birth')
 page= st.sidebar.selectbox('Select variable',
   ['Europe','Europe: United Kingdom','Europe: EU countries','Europe: Non-EU countires','Africa',
   'Middle East and Asia','The Americas and the Caribbean','Antarctica and Oceania (including Australasia) and Other',
