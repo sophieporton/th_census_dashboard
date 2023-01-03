@@ -74,7 +74,7 @@ elif page== 'The Americas and the Caribbean':
   title='Number of people')
 
 elif page== 'Antarctica':
-  plot_wards(country_birth_merge, column='C2021_COB_12_NAME', string='Antarctica', agg='sum',
+  plot_wards(country_birth_merge, column='C2021_COB_12_NAME', string='Antarctica and Oceania (including Australasia) and Other', agg='sum',
   title='Number of people')
 
 elif page== 'British Overseas':
