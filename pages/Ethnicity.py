@@ -21,8 +21,7 @@ def plot_wards(df, column='', string='', agg='',title=''):
                    hover_name=df.dissolve(by='ward_name',aggfunc ={'OBS_VALUE':agg}).index )
     fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(coloraxis_colorbar=dict(title=title))
-    fig.show()
-    #st.plotly_chart(fig,use_container_width = True)
+    st.plotly_chart(fig,use_container_width = True)
 
 # %%
 #define function for merging spatial and variable data 
