@@ -42,7 +42,7 @@ year_arrival_merge=merge_spatial_data(merged_wd_oa, year_arrival_oa,"OA21CD", "G
 st.header('Year of arrival in UK')
 page= st.sidebar.selectbox('Select variable',
   ['Born in the UK','Arrived before 1951','Arrived 1951 to 1960','Arrived 1961 to 1970',
-  'Arrived 1971 to 1980','Arrived 1981 to 1990','Arrived 19991 to 2000','Arrived 2001 to 2010',
+  'Arrived 1971 to 1980','Arrived 1981 to 1990','Arrived 1991 to 2000','Arrived 2001 to 2010',
   'Arrived 2011 to 2013','Arrived 2014 to 2016','Arrived 2017 to 2019','Arrived 2020 to 2021'])
 
 if page== 'Born in the UK':
