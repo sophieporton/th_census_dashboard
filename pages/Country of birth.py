@@ -42,7 +42,7 @@ country_birth_merge=merge_spatial_data(merged_wd_oa, country_birth_oa,"OA21CD", 
 st.header('Country of birth')
 page= st.sidebar.selectbox('Select variable',
   ['Europe','Europe: United Kingdom','Europe: EU countries','Europe: Non-EU countries','Africa',
-  'Middle East and Asia','The Americas and the Caribbean','Antarctica',
+  'Middle East and Asia','The Americas and the Caribbean','Antarctica and Oceania (including Australasia) and Other',
   'British Overseas'])
 
 if page== 'Europe':
@@ -73,8 +73,8 @@ elif page== 'The Americas and the Caribbean':
   plot_wards(country_birth_merge, column='C2021_COB_12_NAME', string='The Americas and the Caribbean', agg='sum',
   title='Number of people')
 
-elif page== 'Antarctica':
-  plot_wards(country_birth_merge, column='C2021_COB_12_NAME', string='Antarctica and Oceania (including Australasia) and Other', agg='sum',
+elif page== 'Antarctica and Oceania (including Australasia) and Other':
+  plot_wards(country_birth_merge, column='C2021_COB_12_NAME', string='Antarctica and Oceania', agg='sum',
   title='Number of people')
 
 elif page== 'British Overseas':
