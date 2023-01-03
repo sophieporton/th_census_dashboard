@@ -54,27 +54,27 @@ page= st.sidebar.selectbox('Select variable',
 'Main language is not English (English or Welsh in Wales): Cannot speak English'])
 
 if page== 'Main language is English (English or Welsh in Wales)':
-  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string='Main language is English (English or Welsh in Wales)', agg='sum',
+  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string='Main language is English', agg='sum',
   title='Number of people')
 
 elif page== 'Main language is not English (English or Welsh in Wales): Total':
-  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string='Main language is not English (English or Welsh in Wales)', agg='sum',
+  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string='Main language is not English', agg='sum',
   title='Number of people')
 
 elif page== 'Main language is not English (English or Welsh in Wales): Can speak English very well':
-  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string='Main language is not English (English or Welsh in Wales): Can speak English very well', agg='sum',
+  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string=': Can speak English very well', agg='sum',
   title='Number of people')
 
 elif page== 'Main language is not English (English or Welsh in Wales): Can speak English well':
-  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string='Main language is not English (English or Welsh in Wales): Can speak English well', agg='sum',
+  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string=': Can speak English well', agg='sum',
   title='Number of people')
 
 elif page== 'Main language is not English (English or Welsh in Wales): Cannot speak English very well':
-  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string='Main language is not English (English or Welsh in Wales): Cannot speak English very well', agg='sum',
+  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string=': Cannot speak English very well', agg='sum',
   title='Number of people')
 
 elif page== 'Main language is not English (English or Welsh in Wales): Cannot speak English':
-  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string='Main language is not English (English or Welsh in Wales): Cannot speak English', agg='sum',
+  plot_wards(english_proficiency_merge, column='C2021_ENGPRF_6_NAME', string=': Cannot speak English', agg='sum',
   title='Number of people')
 
 
