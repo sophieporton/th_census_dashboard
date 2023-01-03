@@ -41,7 +41,7 @@ legal_partnership_merge=merge_spatial_data(merged_wd_oa, legal_partnership_oa,"O
 # %%
 st.header('Legal partnership status')
 page= st.sidebar.selectbox('Select variable',
-  ['Never married and never registered a civil partnership','Married or in a registered civil partnership', 'Married'
+  ['Never married and never registered a civil partnership','Married or in a registered civil partnership', 'Married',
   'Married: Opposite sex','Married: Same sex','In a registered civil partnership','In a registered civil partnership: Opposite sex',
   'In a registered civil partnership: Same sex', 'Separated, but still legally married or still legally in a civil partnership',
   'Divorced or civil partnership dissolved','Widowed or surviving civil partnership partner'])
@@ -53,6 +53,43 @@ if page== 'Never married and never registered a civil partnership':
 elif page== 'Married or in a registered civil partnership':
   plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Married or in a registered civil partnership', agg='sum',
   title='Number of people')
+
+elif page== 'Married':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Married or in a registered civil partnership: Married', agg='sum',
+  title='Number of people')
+
+elif page== 'Married: Opposite sex ':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Married or in a registered civil partnership: Married: Opposite sex', agg='sum',
+  title='Number of people')
+
+elif page== 'Married: Same sex':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Married or in a registered civil partnership: Married: Same sex', agg='sum',
+  title='Number of people')
+
+elif page== 'Separated, but still legally married or still legally in a civil partnership':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Separated, but still legally married or still legally in a civil partnership', agg='sum',
+  title='Number of people')
+
+elif page== 'Divorced or civil partnership dissolved':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Divorced or civil partnership dissolved', agg='sum',
+  title='Number of people')
+
+elif page== 'Widowed or surviving civil partnership partner':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Widowed or surviving civil partnership partner', agg='sum',
+  title='Number of people')
+
+elif page== 'In a registered civil partnership':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Married or in a registered civil partnership: In a registered civil partnership', agg='sum',
+  title='Number of people')
+
+elif page== 'In a registered civil partnership: Opposite sex':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Married or in a registered civil partnership: In a registered civil partnership: Opposite sex', agg='sum',
+  title='Number of people')
+
+elif page== 'In a registered civil partnership: Same sex':
+  plot_wards(legal_partnership_merge, column='C2021_LPSTAT_12_NAME', string='Married or in a registered civil partnership: In a registered civil partnership: Same sex', agg='sum',
+  title='Number of people')
+
 
 
 
